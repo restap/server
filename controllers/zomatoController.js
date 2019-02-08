@@ -24,10 +24,26 @@ class ZomatoController {
     .then(({data}) => {
       let coords = data.results[0].geometry.location
       let address = data.results[0].formatted_address
-      res.json({coords, address})
+      res.status(200).json({coords, address})
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err)
+      res.status(500).json({err : err.message})
+    })
+  }
+
+  static checkRoute(req, res) {
+    axios.get(`https://maps.googleapis.com/maps/api/directions/json?origin=${req.params.origin}&destination=${req.params.destination}&key=${process.env.googlemaps_apiKey}`)
+    .then(({data}) => {
+      let distance = data.routes[0].legs[0].distance.text
+      let duration = data.routes[0].legs[0].duration.text
+      let origin = data.routes[0].legs[0].start_location
+      let destination = data.routes[0].legs[0].end_location
+      res.status(200).json({distance, duration, origin, destination})
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({err : err.message})
     })
   }
 

@@ -9,7 +9,7 @@ const userRoutes = require('../server/routes/user')
 // const hacktivGitRouter = require('./routes/github')
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/restapp', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27n017/restapp', {useNewUrlParser: true});
 
 const cors = require('cors');
 app.use(cors());
